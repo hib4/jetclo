@@ -8,16 +8,16 @@
 
 ## Installation
 ### Gradle
-Make sure that the repositories section includes `"maven { url 'https://jitpack.io' }"`.
-```groovy
+Make sure that the repositories section includes the following:
+```gradle
 repositories {
     maven { url 'https://jitpack.io' }
 }
 ```
-Also on your module's build.gradle file add this implementation statement to the dependencies section.
-```groovy
+Also on your module's build.gradle file add this implementation statement to the dependencies section:
+```gradle
 dependencies {
-    implementation 'com.github.hib4:jetclo:Tag'
+    implementation 'com.github.hib4:jetclo:1.0.3'
 }
 ```
 
