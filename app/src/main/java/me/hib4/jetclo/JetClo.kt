@@ -26,7 +26,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 @Composable
-fun JetClo(
+fun JetCloEx(
     modifier: Modifier = Modifier,
     circleRadius: Float = 300f,
     outerCircleThickness: Float = 50f,
