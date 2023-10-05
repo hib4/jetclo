@@ -12,12 +12,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.unit.dp
 import me.hib4.jetclo.ui.theme.ForceBlue
 import me.hib4.jetclo.ui.theme.Grey
-import me.hib4.jetclo.ui.theme.RedOrange
+import me.hib4.jetclo.ui.theme.Red
 import me.hib4.jetclo.ui.theme.White
 import java.util.Calendar
 import java.util.Date
@@ -30,6 +31,18 @@ fun JetClo(
     modifier: Modifier = Modifier,
     circleRadius: Float = 300f,
     outerCircleThickness: Float = 50f,
+    centerCircleColor: List<Color> = listOf(
+        White.copy(alpha = 0.75f),
+        ForceBlue.copy(alpha = 0.25f)
+    ),
+    outerCircleColor: List<Color> = listOf(
+        White.copy(alpha = 0.45f),
+        ForceBlue.copy(alpha = 0.35f)
+    ),
+    markerColor: Color = Grey,
+    secondsLineColor: Color = Red,
+    minutesLineColor: Color = Grey,
+    hoursLineColor: Color = Grey,
     time: () -> Long
 ) {
     var circleCenter by remember {
@@ -56,23 +69,17 @@ fun JetClo(
             drawCircle(
                 center = circleCenter,
                 brush = Brush.linearGradient(
-                    listOf(
-                        White.copy(alpha = 0.45f),
-                        ForceBlue.copy(alpha = 0.35f)
-                    )
+                    outerCircleColor
                 ),
                 radius = circleRadius + outerCircleThickness / 2f,
-                style = Stroke(width = outerCircleThickness),
+                style = Stroke(width = outerCircleThickness)
             )
             drawCircle(
                 center = circleCenter,
                 brush = Brush.radialGradient(
-                    listOf(
-                        White.copy(alpha = 0.75f),
-                        ForceBlue.copy(alpha = 0.25f)
-                    )
+                    centerCircleColor
                 ),
-                radius = circleRadius,
+                radius = circleRadius
             )
 
             val littleLineLength = circleRadius * 0.1f
@@ -97,7 +104,7 @@ fun JetClo(
                     pivot = start
                 ) {
                     drawLine(
-                        color = Grey,
+                        color = markerColor,
                         start = start,
                         end = end,
                         strokeWidth = lineThickness.dp.toPx()
@@ -105,7 +112,7 @@ fun JetClo(
                 }
             }
 
-            val clockTimes = listOf(ClockTimes.Minutes, ClockTimes.Hours, ClockTimes.Seconds)
+            val clockTimes = listOf(ClockTimes.Hours, ClockTimes.Minutes, ClockTimes.Seconds)
 
             clockTimes.forEach { clockTime ->
                 val angleInDegrees = when (clockTime) {
@@ -160,7 +167,11 @@ fun JetClo(
                     pivot = start
                 ) {
                     drawLine(
-                        color = if (clockTime == ClockTimes.Seconds) RedOrange else Grey,
+                        color = when (clockTime) {
+                            ClockTimes.Seconds -> secondsLineColor
+                            ClockTimes.Minutes -> minutesLineColor
+                            ClockTimes.Hours -> hoursLineColor
+                        },
                         start = start,
                         end = end,
                         strokeWidth = lineThickness.dp.toPx()
