@@ -8,8 +8,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
+import me.hib4.jetclo.ui.theme.Red
 
 @Composable
 fun JetCloExample() {
@@ -28,8 +30,19 @@ fun JetCloExample() {
         modifier = Modifier.size(500.dp),
         circleRadius = 300f,
         outerCircleThickness = 50f,
-        time = {
-            currentTime
-        }
-    )
+        outerCircleColor = listOf(
+            Color.Black.copy(alpha = 0.75f),
+            Color.Black.copy(alpha = 0.25f)
+        ),
+        centerCircleColor = listOf(
+            Color.Gray.copy(alpha = 0.45f),
+            Color.White.copy(alpha = 0.35f)
+        ),
+        markerColor = Color.Black.copy(alpha = 0.5f),
+        secondsLineColor = Red,
+        minutesLineColor = Color.Black.copy(alpha = 0.7f),
+        hoursLineColor = Color.Black.copy(alpha = 0.7f),
+    ) {
+        currentTime
+    }
 }
