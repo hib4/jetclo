@@ -11,13 +11,14 @@
 Make sure that the repositories section includes the following:
 ```gradle
 repositories {
+    mavenCentral()
     maven { url 'https://jitpack.io' }
 }
 ```
 Also on your module's build.gradle file add this implementation statement to the dependencies section:
 ```gradle
 dependencies {
-    implementation 'com.github.hib4:jetclo:1.0.3'
+    implementation 'com.github.hib4:jetclo:1.0.4'
 }
 ```
 
@@ -43,10 +44,21 @@ fun JetCloExample() {
         modifier = Modifier.size(500.dp),
         circleRadius = 300f,
         outerCircleThickness = 50f,
-        time = {
-            currentTime
-        }
-    )
+        outerCircleColor = listOf(
+            Color.Black.copy(alpha = 0.75f),
+            Color.Black.copy(alpha = 0.25f)
+        ),
+        centerCircleColor = listOf(
+            Color.Gray.copy(alpha = 0.45f),
+            Color.White.copy(alpha = 0.35f)
+        ),
+        markerColor = Color.Black.copy(alpha = 0.5f),
+        secondsLineColor = Red,
+        minutesLineColor = Color.Black.copy(alpha = 0.7f),
+        hoursLineColor = Color.Black.copy(alpha = 0.7f)
+    ) {
+        currentTime
+    }
 }
 ```
 
